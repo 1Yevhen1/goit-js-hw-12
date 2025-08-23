@@ -19,7 +19,6 @@ let page = 1;
 const perPage = 15;
 let totalHits = 0;
 
-// Сабміт форми
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -54,7 +53,6 @@ form.addEventListener("submit", async (e) => {
 
     createGallery(data.hits);
 
-    // Перевіряємо кінець колекції
     if (page * perPage >= totalHits) {
       hideLoadMoreButton();
       iziToast.info({
@@ -78,7 +76,6 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// Делегування подій для Load More
 document.addEventListener("click", async (e) => {
   if (!e.target.classList.contains("load-more")) return;
 
@@ -89,7 +86,6 @@ document.addEventListener("click", async (e) => {
     const data = await getImagesByQuery(query, page, perPage);
     createGallery(data.hits);
 
-    // Кінець колекції
     if (page * perPage >= totalHits) {
       hideLoadMoreButton();
       iziToast.info({
@@ -98,8 +94,6 @@ document.addEventListener("click", async (e) => {
         position: "topRight",
       });
     }
-
-    // Плавний скрол до нових карток
     const galleryEl = document.querySelector(".gallery");
     if (galleryEl.firstElementChild) {
       const { height: cardHeight } = galleryEl.firstElementChild.getBoundingClientRect();
